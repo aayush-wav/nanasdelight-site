@@ -22,31 +22,33 @@
     {% block extra_head %}{% endblock %}
 </head>
 <body>
-    <div class="announcement-banner" style="background: var(--text-brown); color: var(--bg-cream); text-align: center; padding: 0.5rem; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; position: relative; z-index: 1100;">
-        Special Offer: Free Delivery inside Kathmandu Valley on orders above रू 2000
-    </div>
-    <header id="main-header">
-        <div class="container">
-            <nav>
-                <div class="nav-links left">
-                    <a href="{{ url_for('shop') }}">Shop</a>
-                    <a href="{{ url_for('about') }}">Story</a>
-                </div>
-                
-                <a href="{{ url_for('index') }}" class="logo">
-                    <img src="{{ url_for('static', filename='images/logo-transparent.png') }}" alt="Nana's Delight Logo">
-                </a>
-                
-                <div class="nav-links right">
-                    <a href="{{ url_for('contact') }}">Contact</a>
-                    <a href="{{ url_for('cart') }}" class="cart-icon">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                        <span id="cart-count">0</span>
-                    </a>
-                </div>
-            </nav>
+    <div class="header-wrapper" style="position: sticky; top: 0; z-index: 1000; width: 100%;">
+        <div class="announcement-banner" style="background: var(--text-brown); color: var(--bg-cream); text-align: center; padding: 0.6rem; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 600;">
+            Special Offer: Free Delivery inside Kathmandu Valley on orders above रू 2000
         </div>
-    </header>
+        <header id="main-header" style="background: rgba(245, 236, 215, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(201, 168, 76, 0.2);">
+            <div class="container">
+                <nav style="display: flex; align-items: center; justify-content: flex-start; gap: 4rem;">
+                    <a href="{{ url_for('index') }}" class="logo">
+                        <img src="{{ url_for('static', filename='images/logo-transparent.png') }}" alt="Nana's Delight Logo" style="height: 50px;">
+                    </a>
+                    
+                    <div class="nav-links" style="display: flex; gap: 2.5rem;">
+                        <a href="{{ url_for('shop') }}">Shop</a>
+                        <a href="{{ url_for('about') }}">Story</a>
+                        <a href="{{ url_for('contact') }}">Contact</a>
+                    </div>
+                    
+                    <div class="nav-icons" style="margin-left: auto;">
+                        <a href="{{ url_for('cart') }}" class="cart-icon">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            <span id="cart-count">0</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </header>
+    </div>
 
     <main>
         {% block content %}{% endblock %}

@@ -5,17 +5,17 @@
     <div class="hero-bg" style="background: radial-gradient(circle at center, #F5ECD7 0%, #E8DCC2 100%); position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></div>
     
     <!-- Floating Ingredient Elements -->
-    <div class="floating-item" style="position: absolute; top: 15%; left: 10%; width: 100px; transform: rotate(-15deg); filter: drop-shadow(0 20px 30px rgba(0,0,0,0.15)); z-index: 1;">
-        <img src="{{ url_for('static', filename='images/cacao_beans.png') }}" alt="Cacao Beans" style="width: 100%;">
+    <div class="floating-item" style="position: absolute; top: 15%; left: 10%; width: 100px; transform: rotate(-15deg); z-index: 1; mix-blend-mode: multiply;">
+        <img src="{{ url_for('static', filename='images/cacao_beans.png') }}" alt="Cacao Beans" style="width: 100%; filter: contrast(1.1) brightness(1.05);">
     </div>
-    <div class="floating-item" style="position: absolute; bottom: 20%; right: 12%; width: 130px; transform: rotate(10deg); filter: drop-shadow(0 20px 30px rgba(0,0,0,0.15)); z-index: 1;">
-        <img src="{{ url_for('static', filename='images/orange_slice.png') }}" alt="Orange Slice" style="width: 100%;">
+    <div class="floating-item" style="position: absolute; bottom: 20%; right: 12%; width: 130px; transform: rotate(10deg); z-index: 1; mix-blend-mode: multiply;">
+        <img src="{{ url_for('static', filename='images/orange_slice.png') }}" alt="Orange Slice" style="width: 100%; filter: contrast(1.1) brightness(1.05);">
     </div>
-    <div class="floating-item" style="position: absolute; top: 40%; right: 15%; width: 80px; transform: rotate(25deg); opacity: 0.8; filter: blur(1px); z-index: 0;">
-        <img src="{{ url_for('static', filename='images/cacao_beans.png') }}" alt="Cacao Beans Small" style="width: 100%;">
+    <div class="floating-item" style="position: absolute; top: 40%; right: 15%; width: 80px; transform: rotate(25deg); opacity: 0.8; filter: blur(1px); z-index: 0; mix-blend-mode: multiply;">
+        <img src="{{ url_for('static', filename='images/cacao_beans.png') }}" alt="Cacao Beans Small" style="width: 100%; filter: contrast(1.1) brightness(1.05);">
     </div>
-    <div class="floating-item" style="position: absolute; bottom: 10%; left: 20%; width: 60px; transform: rotate(-10deg); opacity: 0.6; filter: blur(2px); z-index: 0;">
-        <img src="{{ url_for('static', filename='images/orange_slice.png') }}" alt="Orange Slice Blur" style="width: 100%;">
+    <div class="floating-item" style="position: absolute; bottom: 10%; left: 20%; width: 60px; transform: rotate(-10deg); opacity: 0.6; filter: blur(2px); z-index: 0; mix-blend-mode: multiply;">
+        <img src="{{ url_for('static', filename='images/orange_slice.png') }}" alt="Orange Slice Blur" style="width: 100%; filter: contrast(1.1) brightness(1.05);">
     </div>
 
     <div class="container hero-content">
