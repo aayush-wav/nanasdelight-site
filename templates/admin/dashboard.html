@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Nana's Delight</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body style="background: #f8f8f8;">
+    <div class="admin-layout" style="display: grid; grid-template-columns: 280px 1fr; min-height: 100vh;">
+        
+        <aside class="admin-sidebar" style="background: var(--text-brown); color: white; padding: 3rem 2rem;">
+            <div class="logo" style="margin-bottom: 4rem;">
+                <img src="{{ url_for('static', filename='images/logo-transparent.png') }}" style="height: 50px; filter: invert(1) brightness(2);">
+            </div>
+            
+            <nav class="admin-nav">
+                <ul style="display: grid; gap: 1rem;">
+                    <li><a href="#" style="background: var(--accent-gold); color: white; display: block; padding: 1rem; border-radius: 5px;"><i class="fa-solid fa-chart-line" style="margin-right: 15px;"></i> Dashboard</a></li>
+                    <li><a href="#" style="display: block; padding: 1rem; color: #ccc;"><i class="fa-solid fa-box" style="margin-right: 15px;"></i> Products</a></li>
+                    <li><a href="#" style="display: block; padding: 1rem; color: #ccc;"><i class="fa-solid fa-cart-shopping" style="margin-right: 15px;"></i> Orders</a></li>
+                    <li><a href="#" style="display: block; padding: 1rem; color: #ccc;"><i class="fa-solid fa-users" style="margin-right: 15px;"></i> Customers</a></li>
+                    <li><a href="#" style="display: block; padding: 1rem; color: #ccc;"><i class="fa-solid fa-gear" style="margin-right: 15px;"></i> Settings</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="admin-main" style="padding: 4rem;">
+            <header class="admin-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4rem;">
+                <h1 class="serif" style="font-size: 2.5rem;">Dashboard Overview</h1>
+                <div class="user-profile">
+                    <span>Staff Member: <strong>Aayush</strong></span>
+                    <a href="/" style="margin-left: 20px; color: var(--accent-gold);">View Site</a>
+                </div>
+            </header>
+
+            <div class="stats-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin-bottom: 4rem;">
+                <div class="stat-card paper-element" style="background: white; padding: 2rem;">
+                    <p style="font-size: 0.8rem; text-transform: uppercase; color: #888;">Today's Sales</p>
+                    <h2 class="serif" style="font-size: 2rem;">रू 12,450</h2>
+                </div>
+                <div class="stat-card paper-element" style="background: white; padding: 2rem;">
+                    <p style="font-size: 0.8rem; text-transform: uppercase; color: #888;">Pending Orders</p>
+                    <h2 class="serif" style="font-size: 2rem;">8</h2>
+                </div>
+                <div class="stat-card paper-element" style="background: white; padding: 2rem;">
+                    <p style="font-size: 0.8rem; text-transform: uppercase; color: #888;">Top Product</p>
+                    <h2 class="serif" style="font-size: 1.5rem;">Timmur Dark Choco</h2>
+                </div>
+                <div class="stat-card paper-element" style="background: white; padding: 2rem;">
+                    <p style="font-size: 0.8rem; text-transform: uppercase; color: #888;">New Customers</p>
+                    <h2 class="serif" style="font-size: 2rem;">12</h2>
+                </div>
+            </div>
+
+            <div class="recent-orders paper-element" style="background: white; padding: 3rem;">
+                <h3 class="serif" style="font-size: 1.8rem; margin-bottom: 2rem;">Recent Orders</h3>
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="text-align: left; border-bottom: 2px solid #eee;">
+                            <th style="padding: 1rem;">Order ID</th>
+                            <th style="padding: 1rem;">Customer</th>
+                            <th style="padding: 1rem;">Amount</th>
+                            <th style="padding: 1rem;">Status</th>
+                            <th style="padding: 1rem;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #eee;">
+                            <td style="padding: 1rem;">#ND-9821</td>
+                            <td style="padding: 1rem;">Sita Kumari</td>
+                            <td style="padding: 1rem;">रू 1,200</td>
+                            <td style="padding: 1rem;"><span style="color: #f39c12;">Pending</span></td>
+                            <td style="padding: 1rem;"><a href="#" style="color: var(--accent-gold);">View</a></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #eee;">
+                            <td style="padding: 1rem;">#ND-9820</td>
+                            <td style="padding: 1rem;">Ram Prasad</td>
+                            <td style="padding: 1rem;">रू 450</td>
+                            <td style="padding: 1rem;"><span style="color: #27ae60;">Delivered</span></td>
+                            <td style="padding: 1rem;"><a href="#" style="color: var(--accent-gold);">View</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

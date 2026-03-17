@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}Our Story | Nana's Delight Artisan Chocolates{% endblock %}
+
+{% block content %}
+<section class="about-hero" style="padding: 12rem 0 8rem; background: radial-gradient(circle at center, #F5ECD7 0%, #E8DCC2 100%); position: relative; overflow: hidden;">
+    <div class="container" style="text-align: center;">
+        <h4 class="script accent-gold" style="font-size: 2rem; margin-bottom: 1rem;">Handcrafted in Nepal</h4>
+        <h1 class="serif" style="font-size: 5rem; margin-bottom: 2rem;">The Artisan's Journey</h1>
+        <p style="max-width: 700px; margin: 0 auto; font-size: 1.2rem; color: #555; line-height: 1.8;">
+            Deep in the heart of Patan Dhoka, where tradition meets everyday life, Nana's Delight was born from a simple passion for pure, soulful chocolate.
+        </p>
+    </div>
+</section>
+
+<section class="story-sections" style="padding: 5rem 0; background: var(--bg-cream);">
+    <div class="container">
+        <!-- Section 1: The Process -->
+        <div class="content-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8rem; align-items: center; margin-bottom: 12rem;">
+            <div class="row-image paper-element" style="padding: 0; transform: rotate(1deg);">
+                <img src="{{ url_for('static', filename='images/product box.jpeg') }}" alt="Artisan Process" style="width: 100%; display: block;">
+            </div>
+            <div class="row-text">
+                <h2 class="serif" style="font-size: 3rem; margin-bottom: 2rem;">Soulful Ingredients.</h2>
+                <p style="font-size: 1.1rem; color: #555; margin-bottom: 1.5rem;">
+                    Every bar of Nana's Delight tells a unique story with its ingredients and its place of origin. Working with these flavors from across Nepal, we are able to create a truly special chocolate experience.
+                </p>
+                <p style="font-size: 1.1rem; color: #555;">
+                    From the tangy **Himalayan Goji Berries** to the crisp **Mustang Apples**, each ingredient is carefully selected to ensure the warmth and soul of Nepal is present in every bite.
+                </p>
+            </div>
+        </div>
+
+        <!-- Section 2: The Team/Community -->
+        <div class="content-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8rem; align-items: center;">
+            <div class="row-text" style="order: 2;">
+                <h2 class="serif" style="font-size: 3rem; margin-bottom: 2rem;">Made to Share.</h2>
+                <p style="font-size: 1.1rem; color: #555; margin-bottom: 1.5rem;">
+                    Our chocolates are crafted for moments of connection. Whether it's a bundle to share with a vegan friend or a gift for a loved one, Nana's Delight aims to spread warmth and joy.
+                </p>
+                <div class="stats" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem;">
+                    <div class="stat-item">
+                        <h4 class="serif accent-gold" style="font-size: 2.5rem; color: var(--accent-gold);">100%</h4>
+                        <p class="uppercase" style="font-size: 0.7rem; letter-spacing: 2px;">Handcrafted</p>
+                    </div>
+                    <div class="stat-item">
+                        <h4 class="serif accent-gold" style="font-size: 2.5rem; color: var(--accent-gold);">Local</h4>
+                        <p class="uppercase" style="font-size: 0.7rem; letter-spacing: 2px;">Nepali Ingredients</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row-image paper-element" style="padding: 0; transform: rotate(-1deg); order: 1;">
+                <img src="{{ url_for('static', filename='images/nanas delight stalls.jpeg') }}" alt="Our Community" style="width: 100%; display: block;">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="visit-us" style="padding: 10rem 0; background: var(--text-brown); color: var(--bg-cream); text-align: center;">
+    <div class="container">
+        <h4 class="script" style="color: var(--accent-gold); font-size: 2rem; margin-bottom: 1rem;">Visit our Stall</h4>
+        <h2 class="serif" style="font-size: 3.5rem; margin-bottom: 2rem;">Experience Nana's in Person</h2>
+        <p style="max-width: 600px; margin: 0 auto 3rem; opacity: 0.8; font-size: 1.1rem;">
+            While we love connecting online, you can often find us at local markets and retailers across Lalitpur and Kathmandu. Follow us on Instagram to see our next pop-up location!
+        </p>
+        <a href="https://instagram.com/nanasdelight" target="_blank" class="btn btn-secondary" style="border-color: var(--bg-cream); color: var(--bg-cream);">Follow @nanasdelight</a>
+    </div>
+</section>
+{% endblock %}

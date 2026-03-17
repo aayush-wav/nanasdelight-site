@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block title %}Your Shopping Bag | Nana's Delight{% endblock %}
+
+{% block content %}
+<section class="cart-page" style="padding: 12rem 0 8rem; background: var(--bg-cream); min-height: 80vh;">
+    <div class="container">
+        <h1 class="serif" style="font-size: 3.5rem; text-align: center; margin-bottom: 5rem;">Your Selection</h1>
+        
+        <div id="cart-container" style="display: grid; grid-template-columns: 2fr 1fr; gap: 4rem;">
+            <div id="cart-items-list">
+                <!-- Items populated by JS -->
+                <div class="empty-cart-message" style="text-align: center; padding: 5rem; background: var(--paper-white); border: 1px dashed var(--accent-gold);">
+                    <h3 class="serif">Your bag is currently empty.</h3>
+                    <p style="margin: 1.5rem 0 2.5rem;">Explore our chocolates and fill it with love.</p>
+                    <a href="{{ url_for('shop') }}" class="btn">Explore Shop</a>
+                </div>
+            </div>
+            
+            <div id="cart-summary-sticky" style="position: sticky; top: 120px;">
+                <div class="summary-card paper-element" style="background: var(--paper-white);">
+                    <h3 class="serif" style="font-size: 1.8rem; margin-bottom: 2rem;">Order Summary</h3>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                        <span>Subtotal</span>
+                        <span id="cart-subtotal">रू 0</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 1.5rem;">
+                        <span>Shipping</span>
+                        <span style="color: #777; font-size: 0.9rem;">Calculated at checkout</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; border-top: 1px solid #eee; padding-top: 1.5rem; margin-bottom: 2.5rem; font-weight: 700; font-size: 1.3rem;">
+                        <span>Total</span>
+                        <span id="cart-total">रू 0</span>
+                    </div>
+                    <a href="{{ url_for('checkout') }}" class="btn" style="width: 100%; text-align: center;">Proceed to Checkout</a>
+                    <p style="font-size: 0.75rem; color: #888; text-align: center; margin-top: 1.5rem;">
+                        Taxes and shipping charges will be added at checkout.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .cart-item {
+        display: grid;
+        grid-template-columns: 100px 1fr auto;
+        gap: 2rem;
+        align-items: center;
+        padding: 2rem;
+        background: var(--paper-white);
+        margin-bottom: 1.5rem;
+        border: 1px solid rgba(201, 168, 76, 0.1);
+        transition: var(--transition-smooth);
+    }
+    .cart-item:hover {
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    }
+    .remove-item {
+        color: #ff4d4d;
+        cursor: pointer;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+</style>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    function renderCart() {
+        const cart = JSON.parse(localStorage.getItem('nanas_cart') || '[]');
+        const container = document.getElementById('cart-items-list');
+        const subtotalEl = document.getElementById('cart-subtotal');
+        const totalEl = document.getElementById('cart-total');
+        
+        if (cart.length === 0) {
+            container.innerHTML = `
+                <div class="empty-cart-message" style="text-align: center; padding: 5rem; background: var(--paper-white); border: 1px dashed var(--accent-gold);">
+                    <h3 class="serif">Your bag is currently empty.</h3>
+                    <p style="margin: 1.5rem 0 2.5rem;">Explore our chocolates and fill it with love.</p>
+                    <a href="{{ url_for('shop') }}" class="btn">Explore Shop</a>
+                </div>
+            `;
+            subtotalEl.innerText = 'रू 0';
+            totalEl.innerText = 'रू 0';
+            return;
+        }
+        
+        let html = '';
+        let subtotal = 0;
+        
+        cart.forEach((item, index) => {
+            subtotal += item.price;
+            html += `
+                <div class="cart-item">
+                    <div class="item-img" style="height: 100px; width: 100px; overflow: hidden; border: 1px solid #eee;">
+                        <img src="/static/images/${item.image}" alt="${item.name}" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="item-details">
+                        <h4 class="serif" style="font-size: 1.2rem; margin-bottom: 0.5rem;">${item.name}</h4>
+                        <p style="font-size: 0.85rem; color: var(--accent-gold);">${item.category}</p>
+                    </div>
+                    <div class="item-price" style="text-align: right;">
+                        <p style="font-weight: 600; margin-bottom: 0.5rem;">रू ${item.price}</p>
+                        <span class="remove-item" onclick="removeFromCart(${index})">Remove</span>
+                    </div>
+                </div>
+            `;
+        });
+        
+        container.innerHTML = html;
+        subtotalEl.innerText = `रू ${subtotal}`;
+        totalEl.innerText = `रू ${subtotal}`;
+    }
+    
+    function removeFromCart(index) {
+        let cart = JSON.parse(localStorage.getItem('nanas_cart') || '[]');
+        cart.splice(index, 1);
+        localStorage.setItem('nanas_cart', JSON.stringify(cart));
+        renderCart();
+        updateCartCount();
+    }
+    
+    renderCart();
+</script>
+{% endblock %}

@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+
+{% block title %}Checkout | Nana's Delight{% endblock %}
+
+{% block content %}
+<section class="checkout-page" style="padding: 12rem 0 8rem; background: var(--bg-cream);">
+    <div class="container">
+        <div class="checkout-grid" style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 6rem;">
+            
+            <div class="checkout-form">
+                <h2 class="serif" style="font-size: 2.5rem; margin-bottom: 3rem;">Secure Checkout</h2>
+                
+                <form id="order-form" class="paper-element" style="background: var(--paper-white); padding: 3rem;">
+                    <div class="form-section" style="margin-bottom: 3rem;">
+                        <h4 class="serif accent-gold" style="margin-bottom: 1.5rem; border-bottom: 1px solid #eee; padding-bottom: 0.5rem;">Contact Information</h4>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                            <div class="input-group">
+                                <label style="display: block; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; margin-bottom: 0.5rem;">Full Name</label>
+                                <input type="text" name="name" required style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; font-family: inherit;">
+                            </div>
+                            <div class="input-group">
+                                <label style="display: block; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; margin-bottom: 0.5rem;">Phone Number</label>
+                                <input type="tel" name="phone" required style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; font-family: inherit;" placeholder="+977">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section" style="margin-bottom: 3rem;">
+                        <h4 class="serif accent-gold" style="margin-bottom: 1.5rem; border-bottom: 1px solid #eee; padding-bottom: 0.5rem;">Delivery Address</h4>
+                        <div class="input-group" style="margin-bottom: 1.5rem;">
+                            <label style="display: block; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; margin-bottom: 0.5rem;">Street Address</label>
+                            <input type="text" name="address" required style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; font-family: inherit;" placeholder="e.g. Ward No. 3, Patan Dhoka">
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                            <div class="input-group">
+                                <label style="display: block; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; margin-bottom: 0.5rem;">City</label>
+                                <select name="city" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; font-family: inherit;">
+                                    <option>Lalitpur</option>
+                                    <option>Kathmandu</option>
+                                    <option>Bhaktapur</option>
+                                    <option>Outside Valley</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label style="display: block; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; margin-bottom: 0.5rem;">Preferred Delivery Date</label>
+                                <input type="date" name="delivery_date" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; font-family: inherit;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4 class="serif accent-gold" style="margin-bottom: 1.5rem; border-bottom: 1px solid #eee; padding-bottom: 0.5rem;">Payment Method</h4>
+                        <div class="payment-options" style="display: grid; gap: 1rem;">
+                            <label class="payment-option" style="display: flex; align-items: center; gap: 1rem; padding: 1rem; border: 1px solid #eee; cursor: pointer;">
+                                <input type="radio" name="payment" value="cod" checked>
+                                <span style="font-weight: 500;">Cash on Delivery</span>
+                            </label>
+                            <label class="payment-option" style="display: flex; align-items: center; gap: 1rem; padding: 1rem; border: 1px solid #eee; cursor: pointer;">
+                                <input type="radio" name="payment" value="esewa">
+                                <span style="font-weight: 500;">eSewa</span>
+                            </label>
+                            <label class="payment-option" style="display: flex; align-items: center; gap: 1rem; padding: 1rem; border: 1px solid #eee; cursor: pointer;">
+                                <input type="radio" name="payment" value="khalti">
+                                <span style="font-weight: 500;">Khalti</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn" style="width: 100%; margin-top: 3rem; padding: 1.5rem;">Complete Order</button>
+                </form>
+            </div>
+
+            <div class="order-summary-sidebar">
+                <div class="paper-element" style="background: var(--paper-white);">
+                    <h3 class="serif" style="font-size: 1.8rem; margin-bottom: 2rem;">Order Overview</h3>
+                    <div id="checkout-items" style="margin-bottom: 2rem;">
+                        <!-- JS populated -->
+                    </div>
+                    <div style="border-top: 1px solid #eee; padding-top: 1.5rem;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.8rem;">
+                            <span>Subtotal</span>
+                            <span id="summary-subtotal">रू 0</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.8rem;">
+                            <span>Delivery</span>
+                            <span>रू 100</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-weight: 700; font-size: 1.3rem; margin-top: 1rem;">
+                            <span>Total</span>
+                            <span id="summary-total">रू 100</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .checkout-item {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+    }
+    .payment-option:has(input:checked) {
+        border-color: var(--accent-gold);
+        background: rgba(201, 168, 76, 0.05);
+    }
+</style>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    function loadOrderSummary() {
+        const cart = JSON.parse(localStorage.getItem('nanas_cart') || '[]');
+        const container = document.getElementById('checkout-items');
+        const subtotalEl = document.getElementById('summary-subtotal');
+        const totalEl = document.getElementById('summary-total');
+        
+        let html = '';
+        let subtotal = 0;
+        
+        cart.forEach(item => {
+            subtotal += item.price;
+            html += `
+                <div class="checkout-item">
+                    <img src="/static/images/${item.image}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 3px;">
+                    <div>
+                        <p style="font-weight: 500;">${item.name}</p>
+                        <p style="color: #777; font-size: 0.8rem;">रू ${item.price}</p>
+                    </div>
+                </div>
+            `;
+        });
+        
+        container.innerHTML = html;
+        subtotalEl.innerText = `रू ${subtotal}`;
+        totalEl.innerText = `रू ${subtotal + 100}`;
+    }
+    
+    document.getElementById('order-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        const cart = JSON.parse(localStorage.getItem('nanas_cart') || '[]');
+        const subtotal = cart.reduce((acc, item) => acc + item.price, 0);
+        
+        const orderData = {
+            name: formData.get('name'),
+            phone: formData.get('phone'),
+            address: formData.get('address'),
+            city: formData.get('city'),
+            delivery_date: formData.get('delivery_date'),
+            payment: formData.get('payment'),
+            items: cart,
+            total: subtotal + 100
+        };
+
+        fetch('/checkout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(orderData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                if (orderData.payment === 'cod') {
+                    alert('Order #ND-' + data.order_id + ' placed successfully! We will contact you soon.');
+                    localStorage.removeItem('nanas_cart');
+                    window.location.href = '/';
+                } else {
+                    alert(`Redirecting to ${orderData.payment} portal... (Integration placeholder for Order #ND-${data.order_id})`);
+                }
+            } else {
+                alert('Error: ' + data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Something went wrong. Please try again.');
+        });
+    });
+    
+    loadOrderSummary();
+</script>
+{% endblock %}

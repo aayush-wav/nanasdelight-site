@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Us | Nana's Delight{% endblock %}
+
+{% block content %}
+<section class="contact-hero" style="padding: 12rem 0 6rem; background: var(--bg-cream); text-align: center;">
+    <div class="container">
+        <h4 class="script accent-gold" style="font-size: 1.8rem;">Get in Touch</h4>
+        <h1 class="serif" style="font-size: 4rem;">We'd Love to Hear from You</h1>
+    </div>
+</section>
+
+<section class="contact-details" style="padding: 4rem 0 8rem; background: var(--bg-cream);">
+    <div class="container">
+        <div class="contact-grid" style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 6rem;">
+            
+            <div class="sidebar-info">
+                <div class="paper-element" style="background: var(--paper-white); padding: 3rem; margin-bottom: 2rem;">
+                    <h3 class="serif" style="font-size: 1.8rem; margin-bottom: 2rem;">Contact Info</h3>
+                    <div style="margin-bottom: 2rem;">
+                        <p class="uppercase" style="font-size: 0.7rem; letter-spacing: 2px; color: var(--accent-gold); margin-bottom: 0.5rem;">Address</p>
+                        <p>Madan Smarak Road, Patan Dhoka<br>Lalitpur, Nepal</p>
+                    </div>
+                    <div style="margin-bottom: 2rem;">
+                        <p class="uppercase" style="font-size: 0.7rem; letter-spacing: 2px; color: var(--accent-gold); margin-bottom: 0.5rem;">Phone</p>
+                        <p>+977 1-5544910</p>
+                    </div>
+                    <div style="margin-bottom: 2rem;">
+                        <p class="uppercase" style="font-size: 0.7rem; letter-spacing: 2px; color: var(--accent-gold); margin-bottom: 0.5rem;">Social</p>
+                        <p>Instagram: @nanasdelight</p>
+                    </div>
+                </div>
+                
+                <a href="https://wa.me/97715544910" class="btn" style="width: 100%; text-align: center; background: #25D366; border: none;">
+                    <i class="fa-brands fa-whatsapp" style="margin-right: 10px;"></i> Chat on WhatsApp
+                </a>
+            </div>
+
+            <div class="contact-form-container">
+                <form id="contact-form" class="paper-element" style="background: var(--paper-white); padding: 4rem;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                        <div class="input-group">
+                            <label style="display: block; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; margin-bottom: 0.5rem;">Name</label>
+                            <input type="text" style="width: 100%; padding: 1rem; border: 1px solid #eee; background: #fafafa;">
+                        </div>
+                        <div class="input-group">
+                            <label style="display: block; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; margin-bottom: 0.5rem;">Email</label>
+                            <input type="email" style="width: 100%; padding: 1rem; border: 1px solid #eee; background: #fafafa;">
+                        </div>
+                    </div>
+                    <div class="input-group" style="margin-bottom: 2rem;">
+                        <label style="display: block; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; margin-bottom: 0.5rem;">Subject</label>
+                        <input type="text" style="width: 100%; padding: 1rem; border: 1px solid #eee; background: #fafafa;">
+                    </div>
+                    <div class="input-group" style="margin-bottom: 3rem;">
+                        <label style="display: block; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; margin-bottom: 0.5rem;">Message</label>
+                        <textarea rows="6" style="width: 100%; padding: 1rem; border: 1px solid #eee; background: #fafafa;"></textarea>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

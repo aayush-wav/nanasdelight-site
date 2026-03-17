@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Nana's Delight</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body style="background: var(--bg-cream); display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+    <div class="login-container paper-element" style="width: 100%; max-width: 400px; background: white; padding: 4rem; text-align: center;">
+        <div class="logo" style="margin-bottom: 2rem;">
+            <img src="{{ url_for('static', filename='images/logo-transparent.png') }}" alt="Logo" style="height: 60px;">
+        </div>
+        <h2 class="serif" style="font-size: 2rem; margin-bottom: 2rem;">Staff Portal</h2>
+        
+        {% if error %}
+        <p style="color: #ff4d4d; font-size: 0.8rem; margin-bottom: 1.5rem;">{{ error }}</p>
+        {% endif %}
+
+        <form action="{{ url_for('admin_login') }}" method="POST">
+            <div style="text-align: left; margin-bottom: 1.5rem;">
+                <label style="display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem;">Access Code</label>
+                <input type="password" name="password" required style="width: 100%; padding: 1rem; border: 1px solid #eee; background: #fafafa;">
+            </div>
+            <button type="submit" class="btn" style="width: 100%;">Enter Dashboard</button>
+        </form>
+        
+        <p style="margin-top: 2rem; font-size: 0.8rem; color: #888;">
+            <a href="/" style="color: var(--accent-gold);">&larr; Return to Site</a>
+        </p>
+    </div>
+</body>
+</html>

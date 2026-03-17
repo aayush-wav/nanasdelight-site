@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-bg" style="background: radial-gradient(circle at center, #F5ECD7 0%, #E8DCC2 100%); position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></div>
+    
+    <!-- Floating Chocolate Elements (Mocked with CSS shapes or images if available) -->
+    <div class="floating-item" style="position: absolute; top: 20%; left: 15%; width: 120px; transform: rotate(-15deg); filter: drop-shadow(0 20px 30px rgba(0,0,0,0.1));">
+        <img src="{{ url_for('static', filename='images/product 1.jpeg') }}" alt="Chocolate" style="width: 100%; border-radius: 5px;">
+    </div>
+    <div class="floating-item" style="position: absolute; bottom: 15%; right: 10%; width: 150px; transform: rotate(10deg); filter: drop-shadow(0 20px 30px rgba(0,0,0,0.1));">
+        <img src="{{ url_for('static', filename='images/product box.jpeg') }}" alt="Chocolate Box" style="width: 100%; border-radius: 5px;">
+    </div>
+
+    <div class="container hero-content">
+        <h1 class="serif" style="font-size: 5rem; line-height: 1; margin-bottom: 1rem; color: var(--text-brown);">
+            Artisan <br>Handcrafted <br><span class="accent-gold" style="color: var(--accent-gold);">Nepali</span> Chocolate
+        </h1>
+        <p class="script" style="font-size: 2rem; margin-bottom: 3rem;">Made with local ingredients and a lot of heart.</p>
+        <div class="hero-btns">
+            <a href="{{ url_for('shop') }}" class="btn">Shop Collection</a>
+            <a href="{{ url_for('about') }}" class="btn btn-secondary">Our Story</a>
+        </div>
+    </div>
+</section>
+
+<section class="heritage-story" style="padding: 10rem 0; background: var(--bg-cream); position: relative;">
+    <div class="container" style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 6rem; align-items: center;">
+        <div class="story-image paper-element" style="padding: 0; transform: rotate(-2deg);">
+            <img src="{{ url_for('static', filename='images/nanas delight stalls with team.jpeg') }}" alt="Our Team" style="width: 100%; display: block; filter: grayscale(0.2) contrast(1.1);">
+        </div>
+        <div class="story-text">
+            <h5 class="accent-gold uppercase" style="color: var(--accent-gold); letter-spacing: 2px; font-weight: 600; margin-bottom: 1rem;">OUR HERITAGE</h5>
+            <h2 class="serif" style="font-size: 3rem; margin-bottom: 2rem;">Handcrafted in the heart of Patan.</h2>
+            <p style="font-size: 1.1rem; color: #555; margin-bottom: 2.5rem;">
+                Nana's Delight is more than just chocolate. It's an artisan bakery and chocolate maker based in Patan Dhoka, Nepal. 
+                The ingredients that make our chocolates are uniquely Nepali—from our Himalayan Goji Berries to our Mustang Apples.
+            </p>
+            <a href="{{ url_for('about') }}" class="btn btn-secondary">Explore the Process</a>
+        </div>
+    </div>
+</section>
+
+<section class="featured-products" style="padding: 8rem 0; background: var(--paper-white);">
+    <div class="container">
+        <div class="section-header" style="text-align: center; margin-bottom: 5rem;">
+            <h4 class="script" style="color: var(--accent-gold);">The Artisan's Selection</h4>
+            <h2 class="serif" style="font-size: 3.5rem;">Pure Ingredients. Pure Delight.</h2>
+        </div>
+
+        <div class="product-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem;">
+            {% for product in products %}
+            <div class="product-card" style="transition: var(--transition-smooth); perspective: 1000px;">
+                <a href="{{ url_for('product_detail', product_id=product.id) }}">
+                    <div class="product-image-container paper-element" style="padding: 0; margin-bottom: 1.5rem; overflow: hidden; height: 350px;">
+                        <img src="{{ url_for('static', filename='images/' + product.image) }}" alt="{{ product.name }}" style="width: 100%; height: 100%; object-fit: cover; transition: var(--transition-smooth);">
+                        <div class="product-hover-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(29, 13, 7, 0.4); opacity: 0; display: flex; align-items: center; justify-content: center; transition: var(--transition-smooth);">
+                            <span class="btn" style="padding: 0.8rem 1.5rem; font-size: 0.7rem;">Quick View</span>
+                        </div>
+                    </div>
+                </a>
+                <div class="product-info" style="text-align: center;">
+                    <p class="uppercase" style="font-size: 0.7rem; letter-spacing: 2px; color: var(--accent-gold); margin-bottom: 0.5rem;">{{ product.category }}</p>
+                    <h3 class="serif" style="font-size: 1.5rem; margin-bottom: 0.8rem;">{{ product.name }}</h3>
+                    <p class="price" style="font-weight: 600; font-size: 1.1rem; color: var(--text-brown);">रू {{ product.price }}</p>
+                    <button class="add-to-cart btn btn-secondary" style="margin-top: 1.5rem; width: 100%;" onclick="addToCart({{ product|tojson }})">Add to Cart</button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div style="text-align: center; margin-top: 5rem;">
+            <a href="{{ url_for('shop') }}" class="btn">See All Products</a>
+        </div>
+    </div>
+</section>
+
+<section class="instagram-section">
+    <div class="container">
+        <div class="section-header" style="text-align: center; margin-bottom: 4rem;">
+            <h4 class="script" style="color: var(--accent-gold);">Sharing the Joy</h4>
+            <h2 class="serif" style="font-size: 3rem;">Moments of Delight</h2>
+            <p style="margin-top: 1rem; color: #777;">Follow us <a href="https://instagram.com/nanasdelight" style="color: var(--text-brown); font-weight: 600;">@nanasdelight</a></p>
+        </div>
+        
+        <div class="insta-grid">
+            <div class="insta-item">
+                <img src="{{ url_for('static', filename='images/product 3.jpeg') }}" alt="Insta">
+                <div class="insta-overlay"><i class="fa-brands fa-instagram"></i></div>
+            </div>
+            <div class="insta-item">
+                <img src="{{ url_for('static', filename='images/product 4.jpeg') }}" alt="Insta">
+                <div class="insta-overlay"><i class="fa-brands fa-instagram"></i></div>
+            </div>
+            <div class="insta-item">
+                <img src="{{ url_for('static', filename='images/product 6.jpeg') }}" alt="Insta">
+                <div class="insta-overlay"><i class="fa-brands fa-instagram"></i></div>
+            </div>
+            <div class="insta-item">
+                <img src="{{ url_for('static', filename='images/product 13.jpeg') }}" alt="Insta">
+                <div class="insta-overlay"><i class="fa-brands fa-instagram"></i></div>
+            </div>
+            <div class="insta-item">
+                <img src="{{ url_for('static', filename='images/in hand products.jpeg') }}" alt="Insta">
+                <div class="insta-overlay"><i class="fa-brands fa-instagram"></i></div>
+            </div>
+            <div class="insta-item">
+                <img src="{{ url_for('static', filename='images/product 14.jpeg') }}" alt="Insta">
+                <div class="insta-overlay"><i class="fa-brands fa-instagram"></i></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .product-card:hover .product-image-container img {
+        transform: scale(1.05);
+    }
+    .product-card:hover .product-hover-overlay {
+        opacity: 1;
+    }
+    .floating-item {
+        animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+        0%, 100% { transform: translateY(0) rotate(-15deg); }
+        50% { transform: translateY(-20px) rotate(-10deg); }
+    }
+    .hero-content {
+        animation: heroFadeIn 1.5s ease-out forwards;
+    }
+    @keyframes heroFadeIn {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    function addToCart(product) {
+        let cart = JSON.parse(localStorage.getItem('nanas_cart') || '[]');
+        cart.push(product);
+        localStorage.setItem('nanas_cart', JSON.stringify(cart));
+        updateCartCount();
+        
+        // Simple success notification
+        const btn = event.target;
+        const originalText = btn.innerText;
+        btn.innerText = 'Added!';
+        btn.style.background = '#1D0D07';
+        btn.style.color = '#F5ECD7';
+        
+        setTimeout(() => {
+            btn.innerText = originalText;
+            btn.style.background = 'transparent';
+            btn.style.color = '#1D0D07';
+        }, 2000);
+    }
+    
+    // GSAP Scroll Animations
+    gsap.registerPlugin(ScrollTrigger);
+    
+    gsap.from(".heritage-story .story-image", {
+        scrollTrigger: {
+            trigger: ".heritage-story",
+            start: "top 80%",
+        },
+        x: -50,
+        opacity: 0,
+        duration: 1.5,
+        ease: "power3.out"
+    });
+    
+    gsap.from(".heritage-story .story-text", {
+        scrollTrigger: {
+            trigger: ".heritage-story",
+            start: "top 80%",
+        },
+        x: 50,
+        opacity: 0,
+        duration: 1.5,
+        ease: "power3.out",
+        delay: 0.3
+    });
+</script>
+{% endblock %}
