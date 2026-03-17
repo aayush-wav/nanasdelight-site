@@ -62,4 +62,41 @@
         </div>
     </div>
 </section>
+
+{% block extra_scripts %}
+<script>
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const btn = this.querySelector('button');
+        const originalText = btn.innerText;
+        btn.innerText = 'Sending...';
+        btn.disabled = true;
+
+        // Simulate network delay and send to existing /contact route
+        fetch('/contact', {
+            method: 'POST',
+            body: new FormData(this)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                btn.innerText = 'Message Sent!';
+                btn.style.background = '#27ae60';
+                this.reset();
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.style.background = '';
+                    btn.disabled = false;
+                }, 3000);
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            alert('Could not send message. Please try WhatsApp!');
+            btn.innerText = originalText;
+            btn.disabled = false;
+        });
+    });
+</script>
+{% endblock %}
 {% endblock %}

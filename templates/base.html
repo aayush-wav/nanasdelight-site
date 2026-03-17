@@ -22,6 +22,9 @@
     {% block extra_head %}{% endblock %}
 </head>
 <body>
+    <div class="announcement-banner" style="background: var(--text-brown); color: var(--bg-cream); text-align: center; padding: 0.5rem; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; position: relative; z-index: 1100;">
+        Special Offer: Free Delivery inside Kathmandu Valley on orders above रू 2000
+    </div>
     <header id="main-header">
         <div class="container">
             <nav>
@@ -107,8 +110,41 @@
         // Simple Cart Count Counter
         function updateCartCount() {
             const cart = JSON.parse(localStorage.getItem('nanas_cart') || '[]');
-            document.getElementById('cart-count').innerText = cart.length;
+            const countEl = document.getElementById('cart-count');
+            if (countEl) countEl.innerText = cart.length;
         }
+
+        function addToCart(product, event) {
+            let cart = JSON.parse(localStorage.getItem('nanas_cart') || '[]');
+            cart.push(product);
+            localStorage.setItem('nanas_cart', JSON.stringify(cart));
+            updateCartCount();
+            
+            // Success notification on the button
+            if (event && event.target) {
+                const btn = event.target;
+                const originalText = btn.innerText;
+                btn.innerText = 'Added!';
+                btn.classList.add('btn-added');
+                
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.classList.remove('btn-added');
+                }, 2000);
+            }
+        }
+
+        function addToCartFromBtn(btn, event) {
+            const product = {
+                id: btn.dataset.id,
+                name: btn.dataset.name,
+                price: parseFloat(btn.dataset.price),
+                image: btn.dataset.image,
+                category: btn.dataset.category
+            };
+            addToCart(product, event);
+        }
+
         updateCartCount();
     </script>
     

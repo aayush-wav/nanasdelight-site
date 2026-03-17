@@ -7,11 +7,11 @@
     <div class="container">
         <h4 class="script accent-gold" style="font-size: 1.8rem; margin-bottom: 1rem;">Handcrafted with Heart</h4>
         <h1 class="serif" style="font-size: 4rem; margin-bottom: 2rem;">The Chocolate Collection</h1>
-        <div class="shop-filters" style="display: flex; justify-content: center; gap: 2rem;">
-            <a href="#" class="filter-link active" style="font-weight: 600; color: var(--accent-gold); border-bottom: 2px solid var(--accent-gold); padding-bottom: 5px;">All</a>
-            <a href="#" class="filter-link" style="font-weight: 500; color: #777;">Dark Chocolate</a>
-            <a href="#" class="filter-link" style="font-weight: 500; color: #777;">Milk Chocolate</a>
-            <a href="#" class="filter-link" style="font-weight: 500; color: #777;">Gift Bundles</a>
+        <div class="shop-filters" style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+            <a href="{{ url_for('shop') }}" class="filter-link {% if not active_category %}active{% endif %}" style="font-weight: 600; color: {% if not active_category %}var(--accent-gold){% else %}#777{% endif %}; {% if not active_category %}border-bottom: 2px solid var(--accent-gold);{% endif %} padding-bottom: 5px;">All</a>
+            {% for cat in categories %}
+            <a href="{{ url_for('shop', category=cat) }}" class="filter-link {% if active_category == cat %}active{% endif %}" style="font-weight: 500; color: {% if active_category == cat %}var(--accent-gold){% else %}#777{% endif %}; {% if active_category == cat %}border-bottom: 2px solid var(--accent-gold);{% endif %} padding-bottom: 5px;">{{ cat }}</a>
+            {% endfor %}
         </div>
     </div>
 </section>
@@ -30,7 +30,14 @@
                     <p class="uppercase" style="font-size: 0.65rem; letter-spacing: 2px; color: var(--accent-gold); margin-bottom: 0.5rem;">{{ product.category }}</p>
                     <h3 class="serif" style="font-size: 1.4rem; margin-bottom: 0.8rem;">{{ product.name }}</h3>
                     <p class="price" style="font-weight: 600; font-size: 1.1rem; color: var(--text-brown);">रू {{ product.price }}</p>
-                    <button class="btn btn-secondary" style="margin-top: 1.5rem; width: 100%; font-size: 0.7rem;" onclick="addToCart({{ product|tojson }})">Add to Cart</button>
+                    <button class="add-to-cart btn btn-secondary" 
+                            style="margin-top: 1.5rem; width: 100%;" 
+                            data-id="{{ product.id }}"
+                            data-name="{{ product.name }}"
+                            data-price="{{ product.price }}"
+                            data-image="{{ product.image }}"
+                            data-category="{{ product.category }}"
+                            onclick="addToCartFromBtn(this, event)">Add to Cart</button>
                 </div>
             </div>
             {% endfor %}

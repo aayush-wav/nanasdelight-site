@@ -166,13 +166,8 @@
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                if (orderData.payment === 'cod') {
-                    alert('Order #ND-' + data.order_id + ' placed successfully! We will contact you soon.');
-                    localStorage.removeItem('nanas_cart');
-                    window.location.href = '/';
-                } else {
-                    alert(`Redirecting to ${orderData.payment} portal... (Integration placeholder for Order #ND-${data.order_id})`);
-                }
+                localStorage.removeItem('nanas_cart');
+                window.location.href = `/order-success/${data.order_id}`;
             } else {
                 alert('Error: ' + data.error);
             }

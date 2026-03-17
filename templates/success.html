@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Order Confirmed | Nana's Delight{% endblock %}
+
+{% block content %}
+<section class="success-page" style="padding: 12rem 0 8rem; background: var(--bg-cream); text-align: center; min-height: 80vh;">
+    <div class="container">
+        <div class="paper-element" style="background: white; max-width: 600px; margin: 0 auto; padding: 5rem;">
+            <div class="success-icon" style="font-size: 5rem; color: #27ae60; margin-bottom: 2rem;">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <h1 class="serif" style="font-size: 3rem; margin-bottom: 1.5rem;">Order Confirmed!</h1>
+            <p style="font-size: 1.1rem; color: #555; margin-bottom: 3rem;">
+                Thank you, {{ order.customer_name }}. Your order <strong>#ND-{{ order.id }}</strong> has been received and is being handcrafted with love in Patan.
+            </p>
+            
+            <div class="order-details" style="text-align: left; padding-top: 2rem; border-top: 1px solid #eee;">
+                <h4 class="serif" style="margin-bottom: 1rem;">Summary</h4>
+                <p>Total Paid: <strong>रू {{ "{:,.0f}".format(order.total_amount) }}</strong></p>
+                <p>Delivery to: <strong>{{ order.address }}, {{ order.city }}</strong></p>
+                <p>Method: <strong>{{ "Cash on Delivery" if order.payment_method == "cod" else order.payment_method|upper }}</strong></p>
+            </div>
+            
+            <a href="{{ url_for('index') }}" class="btn" style="margin-top: 4rem;">Return to Shop</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

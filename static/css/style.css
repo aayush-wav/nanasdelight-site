@@ -123,6 +123,27 @@ header.scrolled .logo img {
     gap: 1.5rem;
 }
 
+.cart-icon {
+    position: relative;
+    font-size: 1.2rem;
+}
+
+#cart-count {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: var(--accent-gold);
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 700;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 /* Luxury Button */
 .btn {
     display: inline-block;
@@ -156,6 +177,11 @@ header.scrolled .logo img {
 .btn-secondary:hover {
     background: var(--text-brown);
     color: var(--bg-cream);
+}
+
+.btn-added {
+    background: var(--text-brown) !important;
+    color: var(--bg-cream) !important;
 }
 
 /* Paper Texture Element */

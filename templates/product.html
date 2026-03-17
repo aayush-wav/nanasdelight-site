@@ -25,7 +25,14 @@
                 </div>
 
                 <div class="purchase-actions" style="display: flex; gap: 1rem; flex-direction: column;">
-                    <button class="btn" style="width: 100%; padding: 1.5rem;" onclick="addToCart({{ product|tojson }})">Add to Shopping Bag</button>
+                    <button class="btn" 
+                            style="width: 100%; padding: 1.5rem;" 
+                            data-id="{{ product.id }}"
+                            data-name="{{ product.name }}"
+                            data-price="{{ product.price }}"
+                            data-image="{{ product.image }}"
+                            data-category="{{ product.category }}"
+                            onclick="addToCartFromBtn(this, event)">Add to Shopping Bag</button>
                     <a href="{{ url_for('checkout') }}" class="btn btn-secondary" style="width: 100%; text-align: center; padding: 1.5rem;">Buy it Now</a>
                 </div>
                 
@@ -47,29 +54,18 @@
 <section class="related-products" style="padding: 8rem 0; background: var(--paper-white);">
     <div class="container">
         <h2 class="serif" style="text-align: center; margin-bottom: 5rem; font-size: 2.5rem;">You might also delight in...</h2>
-        <div class="product-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem;">
-            <!-- Simple hardcoded related products for now -->
+        <div class="product-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem;">
+            {% for rel_product in related %}
             <div class="product-card" style="text-align: center;">
-                <div class="paper-element" style="height: 250px; padding: 0; margin-bottom: 1.5rem;">
-                    <img src="{{ url_for('static', filename='images/product 8.jpeg') }}" alt="Related" style="width: 100%; height: 100%; object-fit: cover;">
-                </div>
-                <h4 class="serif">Gorkha Orange Peel</h4>
-                <p>रू 450</p>
+                <a href="{{ url_for('product_detail', product_id=rel_product.id) }}">
+                    <div class="paper-element" style="height: 250px; padding: 0; margin-bottom: 1.5rem; overflow: hidden;">
+                        <img src="{{ url_for('static', filename='images/' + rel_product.image) }}" alt="{{ rel_product.name }}" style="width: 100%; height: 100%; object-fit: cover; transition: var(--transition-smooth);">
+                    </div>
+                    <h4 class="serif" style="font-size: 1.2rem; margin-bottom: 0.5rem;">{{ rel_product.name }}</h4>
+                    <p style="color: var(--accent-gold); font-weight: 600;">रू {{ rel_product.price }}</p>
+                </a>
             </div>
-            <div class="product-card" style="text-align: center;">
-                <div class="paper-element" style="height: 250px; padding: 0; margin-bottom: 1.5rem;">
-                    <img src="{{ url_for('static', filename='images/product box.jpeg') }}" alt="Related" style="width: 100%; height: 100%; object-fit: cover;">
-                </div>
-                <h4 class="serif">Artisan Gift Set</h4>
-                <p>रू 1200</p>
-            </div>
-            <div class="product-card" style="text-align: center;">
-                <div class="paper-element" style="height: 250px; padding: 0; margin-bottom: 1.5rem;">
-                    <img src="{{ url_for('static', filename='images/product 1.jpeg') }}" alt="Related" style="width: 100%; height: 100%; object-fit: cover;">
-                </div>
-                <h4 class="serif">Pink Salt Dark Choco</h4>
-                <p>रू 450</p>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </section>

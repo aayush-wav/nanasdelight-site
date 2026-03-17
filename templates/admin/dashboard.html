@@ -37,20 +37,20 @@
 
             <div class="stats-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin-bottom: 4rem;">
                 <div class="stat-card paper-element" style="background: white; padding: 2rem;">
-                    <p style="font-size: 0.8rem; text-transform: uppercase; color: #888;">Today's Sales</p>
-                    <h2 class="serif" style="font-size: 2rem;">रू 12,450</h2>
+                    <p style="font-size: 0.8rem; text-transform: uppercase; color: #888;">Total Sales</p>
+                    <h2 class="serif" style="font-size: 2rem;">रू {{ "{:,.0f}".format(total_sales) }}</h2>
                 </div>
                 <div class="stat-card paper-element" style="background: white; padding: 2rem;">
                     <p style="font-size: 0.8rem; text-transform: uppercase; color: #888;">Pending Orders</p>
-                    <h2 class="serif" style="font-size: 2rem;">8</h2>
+                    <h2 class="serif" style="font-size: 2rem;">{{ pending_count }}</h2>
                 </div>
                 <div class="stat-card paper-element" style="background: white; padding: 2rem;">
-                    <p style="font-size: 0.8rem; text-transform: uppercase; color: #888;">Top Product</p>
-                    <h2 class="serif" style="font-size: 1.5rem;">Timmur Dark Choco</h2>
+                    <p style="font-size: 0.8rem; text-transform: uppercase; color: #888;">Total Orders</p>
+                    <h2 class="serif" style="font-size: 2rem;">{{ orders|length }}</h2>
                 </div>
                 <div class="stat-card paper-element" style="background: white; padding: 2rem;">
-                    <p style="font-size: 0.8rem; text-transform: uppercase; color: #888;">New Customers</p>
-                    <h2 class="serif" style="font-size: 2rem;">12</h2>
+                    <p style="font-size: 0.8rem; text-transform: uppercase; color: #888;">Unique Customers</p>
+                    <h2 class="serif" style="font-size: 2rem;">{{ customer_count }}</h2>
                 </div>
             </div>
 
@@ -67,20 +67,24 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {% for order in orders %}
                         <tr style="border-bottom: 1px solid #eee;">
-                            <td style="padding: 1rem;">#ND-9821</td>
-                            <td style="padding: 1rem;">Sita Kumari</td>
-                            <td style="padding: 1rem;">रू 1,200</td>
-                            <td style="padding: 1rem;"><span style="color: #f39c12;">Pending</span></td>
+                            <td style="padding: 1rem;">#ND-{{ order.id }}</td>
+                            <td style="padding: 1rem;">{{ order.customer_name }}</td>
+                            <td style="padding: 1rem;">रू {{ "{:,.0f}".format(order.total_amount) }}</td>
+                            <td style="padding: 1rem;">
+                                <span style="color: {% if order.status == 'Pending' %}#f39c12{% else %}#27ae60{% endif %};">
+                                    {{ order.status }}
+                                </span>
+                            </td>
                             <td style="padding: 1rem;"><a href="#" style="color: var(--accent-gold);">View</a></td>
                         </tr>
-                        <tr style="border-bottom: 1px solid #eee;">
-                            <td style="padding: 1rem;">#ND-9820</td>
-                            <td style="padding: 1rem;">Ram Prasad</td>
-                            <td style="padding: 1rem;">रू 450</td>
-                            <td style="padding: 1rem;"><span style="color: #27ae60;">Delivered</span></td>
-                            <td style="padding: 1rem;"><a href="#" style="color: var(--accent-gold);">View</a></td>
+                        {% endfor %}
+                        {% if not orders %}
+                        <tr>
+                            <td colspan="5" style="padding: 2rem; text-align: center; color: #888;">No orders found yet.</td>
                         </tr>
+                        {% endif %}
                     </tbody>
                 </table>
             </div>

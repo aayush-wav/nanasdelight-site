@@ -14,6 +14,17 @@ class Product(db.Model):
     is_featured = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "category": self.category,
+            "description": self.description,
+            "price": self.price,
+            "image": self.image,
+            "stock": self.stock
+        }
+
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     customer_name = db.Column(db.String(100), nullable=False)

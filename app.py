@@ -31,21 +31,28 @@ def index():
 
 @app.route('/shop')
 def shop():
-    all_products = Product.query.all()
-    return render_template('shop.html', products=all_products)
+    category = request.args.get('category')
+    if category:
+        all_products = Product.query.filter_by(category=category).all()
+    else:
+        all_products = Product.query.all()
+    
+    # Get unique categories for the filter links
+    categories = db.session.query(Product.category).distinct().all()
+    categories = [c[0] for c in categories]
+    
+    return render_template('shop.html', products=all_products, categories=categories, active_category=category)
 
 @app.route('/product/<int:product_id>')
 def product_detail(product_id):
     product = Product.query.get_or_404(product_id)
-    return render_template('product.html', product=product)
+    # Fetch 3 related products (from same category if possible, or just random)
+    related = Product.query.filter(Product.id != product_id).limit(3).all()
+    return render_template('product.html', product=product, related=related)
 
 @app.route('/about')
 def about():
     return render_template('about.html')
-
-@app.route('/contact')
-def contact():
-    return render_template('contact.html')
 
 @app.route('/cart')
 def cart():
@@ -86,15 +93,27 @@ def checkout():
 
     return render_template('checkout.html')
 
+@app.route('/order-success/<int:order_id>')
+def order_success(order_id):
+    order = Order.query.get_or_404(order_id)
+    return render_template('success.html', order=order)
+
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+    if request.method == 'POST':
+        # Simple placeholder for contact form processing
+        return jsonify({"success": True})
+    return render_template('contact.html')
+
 @app.route('/admin/login', methods=['GET', 'POST'])
 def admin_login():
     error = None
     if request.method == 'POST':
-        if request.form['password'] == 'nanas123':  # Default password
+        if request.form['password'] == 'nanas123':
             session['logged_in'] = True
             return redirect(url_for('admin_dashboard'))
         else:
-            error = 'Invalid Access Code. Please try again.'
+            error = 'Invalid Access Code.'
     return render_template('admin/login.html', error=error)
 
 @app.route('/admin/logout')
@@ -102,12 +121,21 @@ def admin_logout():
     session.pop('logged_in', None)
     return redirect(url_for('index'))
 
-# Admin Routes
 @app.route('/admin')
 def admin_dashboard():
     if not session.get('logged_in'):
         return redirect(url_for('admin_login'))
-    return render_template('admin/dashboard.html')
+    
+    orders = Order.query.order_by(Order.created_at.desc()).all()
+    total_sales = db.session.query(db.func.sum(Order.total_amount)).scalar() or 0
+    pending_count = Order.query.filter_by(status='Pending').count()
+    customer_count = db.session.query(db.func.count(db.func.distinct(Order.phone))).scalar() or 0
+    
+    return render_template('admin/dashboard.html', 
+                         orders=orders, 
+                         total_sales=total_sales,
+                         pending_count=pending_count,
+                         customer_count=customer_count)
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
