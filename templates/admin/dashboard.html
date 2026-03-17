@@ -61,7 +61,9 @@
                         <tr style="text-align: left; border-bottom: 2px solid #eee;">
                             <th style="padding: 1rem;">Order ID</th>
                             <th style="padding: 1rem;">Customer</th>
+                            <th style="padding: 1rem;">City</th>
                             <th style="padding: 1rem;">Amount</th>
+                            <th style="padding: 1rem;">Payment</th>
                             <th style="padding: 1rem;">Status</th>
                             <th style="padding: 1rem;">Action</th>
                         </tr>
@@ -70,14 +72,22 @@
                         {% for order in orders %}
                         <tr style="border-bottom: 1px solid #eee;">
                             <td style="padding: 1rem;">#ND-{{ order.id }}</td>
-                            <td style="padding: 1rem;">{{ order.customer_name }}</td>
+                            <td style="padding: 1rem;">{{ order.customer_name }}<br><small style="color: #888;">{{ order.phone }}</small></td>
+                            <td style="padding: 1rem;">{{ order.city }}</td>
                             <td style="padding: 1rem;">रू {{ "{:,.0f}".format(order.total_amount) }}</td>
+                            <td style="padding: 1rem;">{{ order.payment_method|upper }}</td>
                             <td style="padding: 1rem;">
-                                <span style="color: {% if order.status == 'Pending' %}#f39c12{% else %}#27ae60{% endif %};">
+                                <span class="status-badge" style="padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; background: {% if order.status == 'Pending' %}#fef9e7; color: #f39c12;{% else %}#eafaf1; color: #27ae60;{% endif %}">
                                     {{ order.status }}
                                 </span>
                             </td>
-                            <td style="padding: 1rem;"><a href="#" style="color: var(--accent-gold);">View</a></td>
+                            <td style="padding: 1rem;">
+                                {% if order.status == 'Pending' %}
+                                <button onclick="updateStatus({{ order.id }}, 'Delivered')" style="border: none; background: none; color: var(--accent-gold); cursor: pointer; text-decoration: underline;">Mark Delivered</button>
+                                {% else %}
+                                <span style="color: #ccc;">No Actions</span>
+                                {% endif %}
+                            </td>
                         </tr>
                         {% endfor %}
                         {% if not orders %}
@@ -90,5 +100,27 @@
             </div>
         </main>
     </div>
+    <script>
+        function updateStatus(orderId, newStatus) {
+            if (!confirm('Are you sure you want to mark this order as ' + newStatus + '?')) return;
+            
+            fetch('/admin/update_order/' + orderId, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ status: newStatus })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();
+                } else {
+                    alert('Error updating status');
+                }
+            })
+            .catch(err => console.error(err));
+        }
+    </script>
 </body>
 </html>

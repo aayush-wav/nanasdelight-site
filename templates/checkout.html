@@ -83,7 +83,7 @@
                         </div>
                         <div style="display: flex; justify-content: space-between; margin-bottom: 0.8rem;">
                             <span>Delivery</span>
-                            <span>रू 100</span>
+                            <span id="summary-delivery">रू 100</span>
                         </div>
                         <div style="display: flex; justify-content: space-between; font-weight: 700; font-size: 1.3rem; margin-top: 1rem;">
                             <span>Total</span>
@@ -112,11 +112,25 @@
 
 {% block extra_scripts %}
 <script>
+    function getDeliveryCharge(city) {
+        const rates = {
+            'Lalitpur': 50,
+            'Kathmandu': 100,
+            'Bhaktapur': 150,
+            'Outside Valley': 250
+        };
+        return rates[city] || 100;
+    }
+
     function loadOrderSummary() {
         const cart = JSON.parse(localStorage.getItem('nanas_cart') || '[]');
         const container = document.getElementById('checkout-items');
         const subtotalEl = document.getElementById('summary-subtotal');
+        const deliveryEl = document.querySelector('div:has(> span:contains("Delivery")) span:last-child') || document.getElementById('summary-delivery');
         const totalEl = document.getElementById('summary-total');
+        
+        const city = document.querySelector('select[name="city"]').value;
+        const deliveryCharge = getDeliveryCharge(city);
         
         let html = '';
         let subtotal = 0;
@@ -136,24 +150,33 @@
         
         container.innerHTML = html;
         subtotalEl.innerText = `रू ${subtotal}`;
-        totalEl.innerText = `रू ${subtotal + 100}`;
+        
+        // Update delivery display - adding an ID to the delivery span if not present
+        const deliverySpan = document.getElementById('summary-delivery');
+        if (deliverySpan) deliverySpan.innerText = `रू ${deliveryCharge}`;
+        
+        totalEl.innerText = `रू ${subtotal + deliveryCharge}`;
     }
+
+    // Add listener for city change
+    document.querySelector('select[name="city"]').addEventListener('change', loadOrderSummary);
     
     document.getElementById('order-form').addEventListener('submit', function(e) {
         e.preventDefault();
         const formData = new FormData(this);
         const cart = JSON.parse(localStorage.getItem('nanas_cart') || '[]');
-        const subtotal = cart.reduce((acc, item) => acc + item.price, 0);
+        const city = formData.get('city');
+        const deliveryCharge = getDeliveryCharge(city);
         
         const orderData = {
             name: formData.get('name'),
             phone: formData.get('phone'),
             address: formData.get('address'),
-            city: formData.get('city'),
+            city: city,
             delivery_date: formData.get('delivery_date'),
             payment: formData.get('payment'),
             items: cart,
-            total: subtotal + 100
+            total: subtotal + deliveryCharge
         };
 
         fetch('/checkout', {
