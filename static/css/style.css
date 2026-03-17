@@ -137,6 +137,142 @@ header.scrolled .logo img {
     justify-content: center;
 }
 
+/* Responsive Utilities */
+.desktop-only {
+    display: flex !important;
+}
+
+.mobile-only {
+    display: none !important;
+}
+
+@media (max-width: 768px) {
+    .desktop-only {
+        display: none !important;
+    }
+    
+    .mobile-only {
+        display: flex !important;
+    }
+    
+    .container {
+        padding: 0 1.5rem;
+    }
+    
+    header {
+        height: auto;
+        padding: 0.5rem 0;
+    }
+    
+    .hero {
+        height: auto;
+        min-height: 80vh;
+        padding: 8rem 0 4rem;
+    }
+
+    .hero-content h1 {
+        font-size: 3rem !important;
+        margin-bottom: 1rem;
+    }
+    
+    .hero-content p {
+        font-size: 1.1rem !important;
+    }
+
+    .floating-item {
+        display: none; /* Hide ingredients on mobile to avoid clutter */
+    }
+
+    /* Grid Adjustments for Mobile Stacking */
+    .responsive-grid, 
+    .detail-grid, 
+    .checkout-grid, 
+    .cart-grid,
+    .contact-grid,
+    .product-grid,
+    .story-grid {
+        grid-template-columns: 1fr !important;
+        gap: 3rem !important;
+    }
+
+    .checkout-form, .order-summary-sidebar,
+    .product-images, .product-info-sticky,
+    #cart-items-list, #cart-summary-sticky {
+        width: 100% !important;
+        position: static !important;
+    }
+
+    .shop-filters {
+        gap: 1rem !important;
+        justify-content: flex-start !important;
+        overflow-x: auto;
+        padding-bottom: 1rem;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .filter-link {
+        white-space: nowrap;
+    }
+    
+    .footer-content {
+        gap: 2rem;
+        text-align: center;
+    }
+    
+    .footer-brand {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cart-item {
+        grid-template-columns: 80px 1fr !important;
+        grid-template-areas: "img details" "img price" !important;
+        gap: 1rem !important;
+        padding: 1.5rem !important;
+    }
+
+    .item-img { grid-area: img; }
+    .item-details { grid-area: details; }
+    .item-price { 
+        grid-area: price; 
+        text-align: left !important;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .shop-header {
+        padding: 6rem 1rem 3rem !important;
+    }
+    
+    .shop-header h1 {
+        font-size: 2.5rem !important;
+    }
+    
+    .shop-grid {
+        padding: 4rem 0 !important;
+    }
+
+    .product-grid {
+        grid-template-columns: 1fr !important;
+        gap: 3rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 2.2rem !important;
+    }
+    
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
 /* Luxury Button */
 .btn {
     display: inline-block;
@@ -302,6 +438,53 @@ footer {
     opacity: 1;
 }
 
+/* Story Section */
+.story-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 6rem;
+    align-items: center;
+}
+
+@media (max-width: 992px) {
+    .story-grid {
+        gap: 3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .story-grid {
+        grid-template-columns: 1fr;
+        gap: 4rem;
+        text-align: center;
+    }
+}
+
+/* Cart Page */
+.cart-item {
+    display: grid;
+    grid-template-columns: 100px 1fr auto;
+    gap: 2rem;
+    align-items: center;
+    padding: 2rem;
+    background: var(--paper-white);
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(201, 168, 76, 0.1);
+    transition: var(--transition-smooth);
+}
+
+.cart-item:hover {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.remove-item {
+    color: #ff4d4d;
+    cursor: pointer;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
 /* Animations */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
@@ -310,4 +493,65 @@ footer {
 
 .fade-in {
     animation: fadeIn 1s forwards;
+}
+
+/* Form Utilities */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+@media (max-width: 600px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Admin Responsive Overrides */
+@media (max-width: 991px) {
+    .admin-layout {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .admin-sidebar {
+        padding: 2rem !important;
+        text-align: center;
+    }
+    
+    .admin-nav ul {
+        display: flex !important;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem !important;
+    }
+    
+    .admin-main {
+        padding: 2rem 1rem !important;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr 1fr !important;
+    }
+    
+    .table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    table {
+        min-width: 600px;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .admin-header {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 1rem;
+    }
 }

@@ -28,27 +28,52 @@
         </div>
         <header id="main-header" style="background: rgba(245, 236, 215, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(201, 168, 76, 0.2);">
             <div class="container">
-                <nav style="display: flex; align-items: center; justify-content: flex-start; gap: 4rem;">
-                    <a href="{{ url_for('index') }}" class="logo">
-                        <img src="{{ url_for('static', filename='images/logo-transparent.png') }}" alt="Nana's Delight Logo" style="height: 50px;">
-                    </a>
-                    
-                    <div class="nav-links" style="display: flex; gap: 2.5rem;">
-                        <a href="{{ url_for('shop') }}">Shop</a>
-                        <a href="{{ url_for('about') }}">Story</a>
-                        <a href="{{ url_for('contact') }}">Contact</a>
+                <nav style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+                    <div style="display: flex; align-items: center; gap: 2rem;">
+                        <a href="{{ url_for('index') }}" class="logo">
+                            <img src="{{ url_for('static', filename='images/logo-transparent.png') }}" alt="Nana's Delight Logo" style="height: 45px;">
+                        </a>
+                        
+                        <div class="nav-links desktop-only" style="display: flex; gap: 2rem;">
+                            <a href="{{ url_for('shop') }}">Shop</a>
+                            <a href="{{ url_for('about') }}">Story</a>
+                            <a href="{{ url_for('contact') }}">Contact</a>
+                        </div>
                     </div>
                     
-                    <div class="nav-icons" style="margin-left: auto;">
+                    <div style="display: flex; align-items: center; gap: 1.5rem;">
                         <a href="{{ url_for('cart') }}" class="cart-icon">
                             <i class="fa-solid fa-cart-shopping"></i>
                             <span id="cart-count">0</span>
                         </a>
+                        <button class="mobile-menu-toggle mobile-only" id="mobileMenuBtn" style="background: none; border: none; font-size: 1.5rem; color: var(--text-brown); cursor: pointer;">
+                            <i class="fa-solid fa-bars"></i>
+                        </button>
                     </div>
                 </nav>
             </div>
-        </header>
     </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-menu-drawer" id="mobileDrawer" style="position: fixed; top: 0; right: -300px; width: 300px; height: 100%; background: var(--bg-cream); z-index: 2000; box-shadow: -10px 0 30px rgba(0,0,0,0.1); transition: right 0.4s ease; padding: 4rem 2rem; display: flex; flex-direction: column;">
+        <button id="closeMenuBtn" style="position: absolute; top: 2rem; right: 2rem; background: none; border: none; font-size: 1.5rem; color: var(--text-brown); cursor: pointer;">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div style="display: flex; flex-direction: column; gap: 2rem; margin-top: 2rem;">
+            <a href="{{ url_for('index') }}" style="font-size: 1.2rem; font-weight: 600; font-family: 'Playfair Display', serif;">Home</a>
+            <a href="{{ url_for('shop') }}" style="font-size: 1.2rem; font-weight: 600; font-family: 'Playfair Display', serif;">Shop Collection</a>
+            <a href="{{ url_for('about') }}" style="font-size: 1.2rem; font-weight: 600; font-family: 'Playfair Display', serif;">Our Story</a>
+            <a href="{{ url_for('contact') }}" style="font-size: 1.2rem; font-weight: 600; font-family: 'Playfair Display', serif;">Contact Us</a>
+        </div>
+        <div style="margin-top: auto; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 2rem;">
+            <p style="font-size: 0.8rem; opacity: 0.6; margin-bottom: 1rem;">Madan Smarak Road, Patan Dhoka</p>
+            <div style="display: flex; gap: 1rem; font-size: 1.2rem;">
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-facebook"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="menu-overlay" id="menuOverlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1999; display: none;"></div>
 
     <main>
         {% block content %}{% endblock %}
@@ -146,6 +171,22 @@
             };
             addToCart(product, event);
         }
+
+        // Mobile Menu Logic
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const closeMenuBtn = document.getElementById('closeMenuBtn');
+        const mobileDrawer = document.getElementById('mobileDrawer');
+        const menuOverlay = document.getElementById('menuOverlay');
+
+        function toggleMenu(show) {
+            mobileDrawer.style.right = show ? '0' : '-300px';
+            menuOverlay.style.display = show ? 'block' : 'none';
+            document.body.style.overflow = show ? 'hidden' : '';
+        }
+
+        if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', () => toggleMenu(true));
+        if (closeMenuBtn) closeMenuBtn.addEventListener('click', () => toggleMenu(false));
+        if (menuOverlay) menuOverlay.addEventListener('click', () => toggleMenu(false));
 
         updateCartCount();
     </script>

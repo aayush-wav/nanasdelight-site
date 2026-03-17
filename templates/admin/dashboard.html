@@ -56,47 +56,49 @@
 
             <div class="recent-orders paper-element" style="background: white; padding: 3rem;">
                 <h3 class="serif" style="font-size: 1.8rem; margin-bottom: 2rem;">Recent Orders</h3>
-                <table style="width: 100%; border-collapse: collapse;">
-                    <thead>
-                        <tr style="text-align: left; border-bottom: 2px solid #eee;">
-                            <th style="padding: 1rem;">Order ID</th>
-                            <th style="padding: 1rem;">Customer</th>
-                            <th style="padding: 1rem;">City</th>
-                            <th style="padding: 1rem;">Amount</th>
-                            <th style="padding: 1rem;">Payment</th>
-                            <th style="padding: 1rem;">Status</th>
-                            <th style="padding: 1rem;">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for order in orders %}
-                        <tr style="border-bottom: 1px solid #eee;">
-                            <td style="padding: 1rem;">#ND-{{ order.id }}</td>
-                            <td style="padding: 1rem;">{{ order.customer_name }}<br><small style="color: #888;">{{ order.phone }}</small></td>
-                            <td style="padding: 1rem;">{{ order.city }}</td>
-                            <td style="padding: 1rem;">रू {{ "{:,.0f}".format(order.total_amount) }}</td>
-                            <td style="padding: 1rem;">{{ order.payment_method|upper }}</td>
-                            <td style="padding: 1rem;">
-                                <span class="status-badge" style="padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; background: {% if order.status == 'Pending' %}#fef9e7; color: #f39c12;{% else %}#eafaf1; color: #27ae60;{% endif %}">
-                                    {{ order.status }}
-                                </span>
-                            </td>
-                            <td style="padding: 1rem;">
-                                {% if order.status == 'Pending' %}
-                                <button onclick="updateStatus({{ order.id }}, 'Delivered')" style="border: none; background: none; color: var(--accent-gold); cursor: pointer; text-decoration: underline;">Mark Delivered</button>
-                                {% else %}
-                                <span style="color: #ccc;">No Actions</span>
-                                {% endif %}
-                            </td>
-                        </tr>
-                        {% endfor %}
-                        {% if not orders %}
-                        <tr>
-                            <td colspan="5" style="padding: 2rem; text-align: center; color: #888;">No orders found yet.</td>
-                        </tr>
-                        {% endif %}
-                    </tbody>
-                </table>
+                <div class="table-container">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="text-align: left; border-bottom: 2px solid #eee;">
+                                <th style="padding: 1rem;">Order ID</th>
+                                <th style="padding: 1rem;">Customer</th>
+                                <th style="padding: 1rem;">City</th>
+                                <th style="padding: 1rem;">Amount</th>
+                                <th style="padding: 1rem;">Payment</th>
+                                <th style="padding: 1rem;">Status</th>
+                                <th style="padding: 1rem;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in orders %}
+                            <tr style="border-bottom: 1px solid #eee;">
+                                <td style="padding: 1rem;">#ND-{{ order.id }}</td>
+                                <td style="padding: 1rem;">{{ order.customer_name }}<br><small style="color: #888;">{{ order.phone }}</small></td>
+                                <td style="padding: 1rem;">{{ order.city }}</td>
+                                <td style="padding: 1rem;">रू {{ "{:,.0f}".format(order.total_amount) }}</td>
+                                <td style="padding: 1rem;">{{ order.payment_method|upper }}</td>
+                                <td style="padding: 1rem;">
+                                    <span class="status-badge" style="padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; background: {% if order.status == 'Pending' %}#fef9e7; color: #f39c12;{% else %}#eafaf1; color: #27ae60;{% endif %}">
+                                        {{ order.status }}
+                                    </span>
+                                </td>
+                                <td style="padding: 1rem;">
+                                    {% if order.status == 'Pending' %}
+                                    <button onclick="updateStatus({{ order.id }}, 'Delivered')" style="border: none; background: none; color: var(--accent-gold); cursor: pointer; text-decoration: underline;">Mark Delivered</button>
+                                    {% else %}
+                                    <span style="color: #ccc;">No Actions</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            {% if not orders %}
+                            <tr>
+                                <td colspan="7" style="padding: 2rem; text-align: center; color: #888;">No orders found yet.</td>
+                            </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </main>
     </div>

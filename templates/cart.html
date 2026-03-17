@@ -7,7 +7,7 @@
     <div class="container">
         <h1 class="serif" style="font-size: 3.5rem; text-align: center; margin-bottom: 5rem;">Your Selection</h1>
         
-        <div id="cart-container" style="display: grid; grid-template-columns: 2fr 1fr; gap: 4rem;">
+        <div class="cart-grid" id="cart-container">
             <div id="cart-items-list">
                 <!-- Items populated by JS -->
                 <div class="empty-cart-message" style="text-align: center; padding: 5rem; background: var(--paper-white); border: 1px dashed var(--accent-gold);">
@@ -42,29 +42,6 @@
     </div>
 </section>
 
-<style>
-    .cart-item {
-        display: grid;
-        grid-template-columns: 100px 1fr auto;
-        gap: 2rem;
-        align-items: center;
-        padding: 2rem;
-        background: var(--paper-white);
-        margin-bottom: 1.5rem;
-        border: 1px solid rgba(201, 168, 76, 0.1);
-        transition: var(--transition-smooth);
-    }
-    .cart-item:hover {
-        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    }
-    .remove-item {
-        color: #ff4d4d;
-        cursor: pointer;
-        font-size: 0.8rem;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-</style>
 {% endblock %}
 
 {% block extra_scripts %}

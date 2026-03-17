@@ -5,12 +5,12 @@
 {% block content %}
 <section class="product-detail" style="padding: 12rem 0 8rem; background: var(--bg-cream);">
     <div class="container">
-        <div class="detail-grid" style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 6rem; align-items: start;">
+        <div class="detail-grid">
             <div class="product-images paper-element" style="padding: 0; transform: rotate(-1deg);">
                 <img src="{{ url_for('static', filename='images/' + product.image) }}" alt="{{ product.name }}" style="width: 100%; display: block;">
             </div>
             
-            <div class="product-info-sticky" style="position: sticky; top: 120px;">
+            <div class="product-info-sticky">
                 <p class="uppercase accent-gold" style="letter-spacing: 3px; font-weight: 600; margin-bottom: 1rem;">{{ product.category }}</p>
                 <h1 class="serif" style="font-size: 3.5rem; line-height: 1.1; margin-bottom: 1.5rem;">{{ product.name }}</h1>
                 <p class="price" style="font-size: 2rem; font-weight: 700; color: var(--text-brown); margin-bottom: 2.5rem;">रू {{ product.price }}</p>
