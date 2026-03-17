@@ -227,7 +227,6 @@ footer {
 .footer-logo img {
     height: 80px;
     margin-bottom: 1.5rem;
-    filter: invert(1) brightness(2);
 }
 
 /* WhatsApp Floating Button */
